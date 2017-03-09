@@ -1233,8 +1233,9 @@ export default {
 */
         room.on(
             ConferenceEvents.LAST_N_ENDPOINTS_CHANGED, (ids, enteringIds) => {
-            APP.UI.handleLastNEndpoints(ids, enteringIds);
+                APP.UI.handleLastNEndpoints(ids, enteringIds);
         });
+
         room.on(
             ConferenceEvents.PARTICIPANT_CONN_STATUS_CHANGED,
             (id, isActive) => {
@@ -1883,5 +1884,18 @@ export default {
      */
     removeListener (eventName, listener) {
         eventEmitter.removeListener(eventName, listener);
+    },
+
+    /**
+     * Checks if the participant given by participantId is currently in the
+     * last N set if there's one supported.
+     *
+     * @param participantId the identifier of the participant
+     * @returns {boolean} {true} if the participant given by the participantId
+     * is currently in the last N set or if there's no last N set at this point
+     * and {false} otherwise
+     */
+    isInLastN (participantId) {
+        return room.isInLastN(participantId);
     }
 };
